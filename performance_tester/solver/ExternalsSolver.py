@@ -157,12 +157,13 @@ class ExternalsSolver(AbstractSolver):
 
                 if not self._performance_test: print "solve step: ", step
                 self._solveTimer.start()
-                ret, step = self._prg.solve(self.on_model).satisfiable, step+1
+                ret, step = self._prg.solve(on_model=super(ExternalsSolver, self).on_model).satisfiable, step+1
                 self._solveTimer.stop()
                 if not self._performance_test:
                     print "solve time: ", round(self._solveTimer.getLastSecs(),4)
-                    print self._prg.solve(self.on_model)
+                    print self._prg.solve(on_model=super(ExternalsSolver, self).on_model)
                     print
+                self._num_steps = step
 
                 
         except RuntimeError as error:

@@ -5,21 +5,12 @@ import os
 import sys, getopt
 import multiprocessing
 import re
-sys.path.insert(0, './visualizer')
-sys.path.insert(0, './classes')
-import clingo
-from clingo import *
+from solver.GroundSolver import *
+from solver.ExternalsSolver import *
 
-import robot
-from robot import *
-import shelf
-from shelf import *
-import GroundSolver
-from GroundSolver import *
-import ExternalsSolver
-from ExternalsSolver import *
-import visualizer
-from visualizer import *
+#sys.path.insert(0, './classes')
+
+
 
 def get(val, default):
     return val if val != None else default
@@ -123,7 +114,14 @@ def main():
         roundTo = 3
 
         oFile = open("stats", "w")
-        oFile.write("Test \t\t\t\t\t\t\t\t\ttotal_time \tground_time \tsolve_time \tsteps\t\tSAT\t\t\tSolverType\tconstraints\tvariables\tconflicts\tchoices\trestarts\n")
+        string = "{:40}{:15}{:15}{:15}{:10}{:10}{:15}{:15}{:15}{:15}{:15}{:15}\n".format("Test","total_time","ground_time"
+                                                                                       ,"solve_time","steps","SAT",
+                                                                                       "solver_type","constraints",
+                                                                                       "variables","conflicts","choices"
+                                                                                       ,"restarts")
+
+        oFile.write(string)
+        #oFile.write("Test \t\t\t\t\t\t\t\t\t\t\ttotal_time \t\tground_time \tsolve_time \t\tsteps\t\tSAT\t\t\tSolverType\tconstraints\tvariables\tconflicts\tchoices\trestarts\n")
 
 
         alltests =  getInstances(instance_dir)
@@ -146,11 +144,11 @@ def main():
             cf += confl
             re += restarts
             va += vars
-            string = "{}\t\t\t{:.3f}\t\t{:.3f}\t\t{:.3f}\t\t{}\t\t\t{}\t\t{}\t\t{}\t\t\t{}\t\t\t{}\t\t\t{}\t\t\t{}\n".format(os.path.basename(test), total_time, ground_time, solve_time, solver._num_steps, result, solverType, int(constr), int(vars), int(confl), int(choices), int(restarts))
+            string = "{:40}{:12.3f}{:12.3f}{:12.3f}{:10}\t\t{}\t\t{:15}{:15}{:15}{:15}{:15}{:15}\n".format(os.path.basename(test), total_time, ground_time, solve_time, solver._num_steps, result, solverType, int(constr), int(vars), int(confl), int(choices), int(restarts))
             oFile.write(string)
             print unichr(157)
 
-        oFile.write("TOTAL \t\t\t\t\t\t\t\t\t\t"+str(round(tt,3))+"\t\t"+str(round(gt,3))+"\t\t"+str(round(st,3))+"\t\t\t\t\t\t\t\t\t\t\t"+str(int(cc))+"\t\t\t"+str(int(va))+"\t\t\t"+str(int(cf))+"\t\t\t"+str(int(ch))+"\t\t\t"+str(int(re))+"\n")
+        oFile.write("TOTAL \t\t\t\t\t\t\t\t\t\t\t\t"+str(round(tt,3))+"\t\t"+str(round(gt,3))+"\t\t"+str(round(st,3))+"\t\t\t\t\t\t\t\t\t\t\t\t"+str(int(cc))+"\t\t\t"+str(int(va))+"\t\t\t"+str(int(cf))+"\t\t\t"+str(int(ch))+"\t\t\t"+str(int(re))+"\n")
         oFile.write("number of Threads: " + threads)
         oFile.close()
         os.system("cat stats")

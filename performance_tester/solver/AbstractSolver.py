@@ -127,7 +127,7 @@ class AbstractSolver(object):
             #self._num_stations = prg.get_const("num_packingStations").number
 
 
-            prg.solve(self.on_model)
+            prg.solve(on_model=self.on_model)
             self._show_solution = show_soluition_before
             return True
         except RuntimeError as error:
