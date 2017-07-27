@@ -8,7 +8,6 @@ import re
 from solver.GroundSolver import *
 from solver.ExternalsSolver import *
 
-#sys.path.insert(0, './classes')
 
 
 
@@ -114,7 +113,7 @@ def main():
         roundTo = 3
 
         oFile = open("stats", "w")
-        string = "{:40}{:15}{:15}{:15}{:10}{:10}{:15}{:15}{:15}{:15}{:15}{:15}\n".format("Test","total_time","ground_time"
+        string = "{:40}{:15}{:15}{:12}{:10}{:10}{:15}{:15}{:15}{:15}{:15}{:15}\n".format("Test","total_time","ground_time"
                                                                                        ,"solve_time","steps","SAT",
                                                                                        "solver_type","constraints",
                                                                                        "variables","conflicts","choices"
@@ -144,11 +143,16 @@ def main():
             cf += confl
             re += restarts
             va += vars
-            string = "{:40}{:12.3f}{:12.3f}{:12.3f}{:10}\t\t{}\t\t{:15}{:15}{:15}{:15}{:15}{:15}\n".format(os.path.basename(test), total_time, ground_time, solve_time, solver._num_steps, result, solverType, int(constr), int(vars), int(confl), int(choices), int(restarts))
+            string = "{:40}{:12.3f}{:12.3f}{:12.3f}{:10}\t\t{}\t\t{:8}{:15}{:15}{:15}{:15}{:15}\n".format(os.path.basename(test), total_time, ground_time, solve_time, solver._num_steps, result, solverType, int(constr), int(vars), int(confl), int(choices), int(restarts))
             oFile.write(string)
             print unichr(157)
 
-        oFile.write("TOTAL \t\t\t\t\t\t\t\t\t\t\t\t"+str(round(tt,3))+"\t\t"+str(round(gt,3))+"\t\t"+str(round(st,3))+"\t\t\t\t\t\t\t\t\t\t\t\t"+str(int(cc))+"\t\t\t"+str(int(va))+"\t\t\t"+str(int(cf))+"\t\t\t"+str(int(ch))+"\t\t\t"+str(int(re))+"\n")
+        string = "{:46}{:13}{:11}{:51}{:15}{:15}{:14}{:18}{:15}\n".format("TOTAL", str(round(tt,3)), str(round(gt,3)),
+                                                                                         str(round(st, 3)), str(int(cc)),
+                                                                                         str(int(va)), str(int(cf)),
+                                                                                         str(int(ch)), str(int(re)))
+        oFile.write(string)
+        #oFile.write("TOTAL \t\t\t\t\t\t\t\t\t\t\t"+str(round(tt,3))+"\t\t"+str(round(gt,3))+"\t\t"+str(round(st,3))+"\t\t\t\t\t\t\t\t\t\t\t\t"+str(int(cc))+"\t\t\t"+str(int(va))+"\t\t\t"+str(int(cf))+"\t\t\t"+str(int(ch))+"\t\t\t"+str(int(re))+"\n")
         oFile.write("number of Threads: " + threads)
         oFile.close()
         os.system("cat stats")

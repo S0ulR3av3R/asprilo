@@ -98,7 +98,7 @@ class AbstractSolver(object):
             print "can't open file: ", instance
             return False
 
-        print "Loading init file: ", instance
+        print "Loading instance file: ", instance
         self._instance = instance
         show_soluition_before = self._show_solution
         self._show_solution = False

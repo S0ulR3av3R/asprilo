@@ -5,7 +5,7 @@
 
 ## Readme
 ### Run: 
-    python logistics.py <parameter> <option> 
+    python performace_tester.py <parameter> <option> 
 
 ### Parameters and Options:
     -h,	--help		  	 Help
@@ -16,10 +16,10 @@
 
 ### examples:
 
-    python logistics.py -i instances/x4_y4_n16_r2_s3_ps1_pr2_u4_o2_N4.lp
+    python performace_tester.py -i instances/x4_y4_n16_r2_s3_ps1_pr2_u4_o2_N4.lp
 
-    python logistics.py -i instances/x4_y4_n16_r2_s3_ps1_pr2_u4_o2_N4.lp -s external
+    python performace_tester.py -i instances/x4_y4_n16_r2_s3_ps1_pr2_u4_o2_N4.lp -s external
     
-    python logistics.py -p instances/
+    python performace_tester.py -p instances/
 
 
